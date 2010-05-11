@@ -1,38 +1,79 @@
 class apache {
-  $apache = "apache2"
-  $apache_worker = "apache2-mpm-prefork"
-  $apache_conf_dir = "/etc/apache2"
-  $apache_conf = "apache2.conf"
-  $apache_control = "/etc/init.d/apache2"
-  $sites_available = "${apache_conf_dir}/sites-available"
-  $sites_enabled = "${apache_conf_dir}/sites-enabled"
-  $mods_available = "${apache_conf_dir}/mods-available"
-  $mods_enabled = "${apache_conf_dir}/mods-enabled"
+  $apache = $apache ? {
+    "" => "apache2",
+    default => $apache
+  }
+
+  $apache_worker = $apache_worker ? {
+    "" => "apache2-mpm-prefork",
+    default => $apache_worker
+  }
+
+  $apache_conf_dir = $apache_conf_dir ? {
+    "" => "/etc/${apache}",
+    default => $apache_conf_dir
+  }
+
+  $apache_conf_file = $apache_conf_file ? {
+    "" => "${apache}.conf",
+    default => $apache_conf_file
+  }
+
+  $apache_init_script = $apache_init_script ? {
+    "" => "/etc/init.d/${apache}",
+    default => $apache_init_script
+  }
+
+  $apache_sites_available = $apache_sites_available ? {
+    "" => "${apache_conf_dir}/sites-available",
+    default => $apache_sites_available
+  }
+
+  $apache_sites_enabled = $apache_sites_enabled ? {
+    "" => "${apache_conf_dir}/sites-enabled",
+    default => $apache_sites_enabled
+  }
+
+  $apache_mods_available = $apache_mods_available ? {
+    "" => "${apache_conf_dir}/mods-available",
+    default => $apache_mods_available
+  }
+
+  $apache_mods_enabled = $apache_mods_enabled ? {
+    "" => "${apache_conf_dir}/mods-enabled",
+    default => $apache_mods_enabled
+  }
 
   package {
-    "apache-worker":
+    "apache::package::worker":
       name => $apache_worker,
-      ensure => installed,
+      ensure => $apache_worker_version ? {
+        "" => installed,
+        default => $apache_worker_version
+      },
       before => Package["apache"];
     "apache":
       name   => $apache,
-      ensure => installed;
+      ensure => $apache_version ? {
+        "" => installed,
+        default => $apache_version
+      };
   }
 
   file {
-    "apache config dir":
+    "apache::config_dir":
       path => $apache_conf_dir,
       ensure => directory,
       require => Package["apache"];
     "apache.conf":
       path => "${apache_conf_dir}/${apache_conf}",
       source => "puppet:///apache/apache.conf",
-      require => File["apache config dir"],
+      require => File["apache::config_dir"],
       notify => Service["apache"];
     "envvars":
       path => "${apache_conf_dir}/envvars",
       source => "puppet:///apache/envvars",
-      require => File["apache config dir"],
+      require => File["apache::config_dir"],
       notify => Service["apache"];
     ["${apache_conf_dir}/mods-available",
      "${apache_conf_dir}/mods-enabled",
@@ -53,9 +94,11 @@ class apache {
     require => Package["apache"],
   }
 
-  # Disable the Debian "default" site.
-  file { "${sites_enabled}/000-default":
-    ensure => absent,
-    notify => Service["apache"]
+  if $operatingsystem == "Debian" {
+    # Disable the Debian "default" site.
+    file { "${sites_enabled}/000-default":
+      ensure => absent,
+      notify => Service["apache"]
+    }
   }
 }

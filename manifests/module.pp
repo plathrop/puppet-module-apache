@@ -1,4 +1,4 @@
-define apache::module ( $ensure = 'present') {
+define apache::module($ensure = 'present') {
   case $ensure {
     present,installed : {
       exec { "/usr/sbin/a2enmod $name":
@@ -14,6 +14,6 @@ define apache::module ( $ensure = 'present') {
         require => Package["apache"],
       }
     }
-    default: { err ( "Unknown ensure value: '$ensure'" ) }
+    default: { err ( "apache::module Unknown ensure value: '$ensure'" ) }
   }
 }
