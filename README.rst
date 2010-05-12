@@ -75,13 +75,6 @@ apache::config
      * ``order``
       * Order in which this config snippet will be included.
 
-apache::module
-     A simple wrapper around ``a2enmod`` and ``a2dismod``.
-
-     Parameters:
-
-     * ``ensure`` (default: ``present``)
-
 apache::vhost
      Sets up apache virtual hosts by creating files in
      ``${apache_sites_available}`` and, if enabled, symlinks in
@@ -94,3 +87,17 @@ apache::vhost
       * Note ``content`` and ``source`` are mutually exclusive.
      * ``source``
       * Note ``content`` and ``source`` are mutually exclusive.
+
+Custom Types/Providers
+----------------------
+apachemodule
+     Custom type to manage Apache modules::
+
+     apachemodule {
+       "status":
+         ensure => present;
+     }
+
+a2mod
+     Provider for ``apachemodule`` which uses a2enmod and a2dismod. Assumes
+     that the module dir (``$apache_mods_enabled``) is ``/etc/apache2/mods-enabled``
