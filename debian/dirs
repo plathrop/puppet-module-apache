@@ -1,5 +1,9 @@
 usr/share/puppet/modules
 usr/share/puppet/modules/apache
 usr/share/puppet/modules/apache/files
+usr/share/puppet/modules/apache/lib
+usr/share/puppet/modules/apache/lib/puppet
+usr/share/puppet/modules/apache/lib/puppet/provider
+usr/share/puppet/modules/apache/lib/puppet/provider/apachemodule
+usr/share/puppet/modules/apache/lib/puppet/type
 usr/share/puppet/modules/apache/manifests
-
