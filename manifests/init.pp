@@ -44,6 +44,11 @@ class apache {
     default => $apache_mods_enabled
   }
 
+  $apache_listen_ports = $apache_listen_ports ? {
+    "" => "80",
+    default => $apache_listen_ports
+  }
+
   package {
     "apache::package::worker":
       name => $apache_worker,
@@ -86,12 +91,19 @@ class apache {
        ensure => directory;
   }
 
-  service { "apache":
-    name => $apache,
-    enable => true,
-    ensure => running,
-    hasrestart => true,
-    require => Package["apache"],
+  apache::config {
+    "ports":
+      content => "${apache_listen_ports}\n",
+      order => "000";
+  }
+
+  service {
+    "apache":
+      name => $apache,
+      enable => true,
+      ensure => running,
+      hasrestart => true,
+      require => Package["apache"],
   }
 
   if $operatingsystem == "Debian" {
