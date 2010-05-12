@@ -66,6 +66,7 @@ apache::config
      configuration.
 
      Parameters:
+
      * ``ensure`` (default: ``present``)
      * ``content``
       * Note ``content`` and ``source`` are mutually exclusive.
@@ -78,6 +79,7 @@ apache::module
      A simple wrapper around ``a2enmod`` and ``a2dismod``.
 
      Parameters:
+
      * ``ensure`` (default: ``present``)
 
 apache::vhost
@@ -86,6 +88,7 @@ apache::vhost
      ``${apache_sites_enabled}``.
 
      Parameters:
+
      * ``ensure``
      * ``content``
       * Note ``content`` and ``source`` are mutually exclusive.
