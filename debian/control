@@ -2,11 +2,12 @@ Source: puppet-module-apache
 Section: misc
 Priority: extra
 Maintainer: Paul Lathrop <plathrop@digg.com>
+Uploaders: Ian Eure <ian@simplegeo.com>
 Build-Depends: debhelper (>= 5)
-Standards-Version: 3.7.2
+Standards-Version: 3.8.4
 
 Package: puppet-module-apache
 Architecture: all
-Depends: puppet-common
+Depends: ${misc:Depends}, puppet-common
 Description: Puppet module for configuring the apache webserver.
- Puppet module for configuring the apache webserver.
+ This module allows you to configure Apache with Puppet.
