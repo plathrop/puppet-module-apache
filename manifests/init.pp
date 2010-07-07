@@ -71,7 +71,7 @@ class apache {
       ensure => directory,
       require => Package["apache"];
     "apache.conf":
-      path => "${apache_conf_dir}/${apache_conf}",
+      path => "${apache_conf_dir}/${apache_conf_file}",
       source => "puppet:///apache/apache.conf",
       require => File["apache::config_dir"],
       notify => Service["apache"];
@@ -84,11 +84,13 @@ class apache {
      "${apache_conf_dir}/mods-enabled",
      "${apache_conf_dir}/conf.d"]:
        ensure => directory;
-     ["${apache_conf_dir}/sites-available",
-      "${apache_conf_dir}/sites-enabled"]:
-       recurse => true,
-       purge => true,
-       ensure => directory;
+    ["${apache_conf_dir}/sites-available",
+     "${apache_conf_dir}/sites-enabled"]:
+      recurse => true,
+      purge => true,
+      ensure => directory,
+      checksum => "mtime",
+      notify => Service["apache"];
   }
 
   apache::config {
