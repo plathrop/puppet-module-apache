@@ -8,7 +8,7 @@ define apache::vhost($ensure, $source='', $content='') {
   File { notify => Service["apache"] }
 
   file {
-    "${apache::sites_available}/${name}":
+    "${apache_sites_available}/${name}":
       source => $source ? {
         '' => undef,
         default => $source
@@ -24,7 +24,7 @@ define apache::vhost($ensure, $source='', $content='') {
         purged => absent,
         default => $ensure
       };
-    "${apache::sites_enabled}/${name}":
+    "${apache_sites_enabled}/${name}":
       target => "${apache::sites_available}/${name}",
       ensure  => $ensure ? {
         enabled => symlink,
