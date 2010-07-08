@@ -91,11 +91,14 @@ apache::vhost
 Custom Types/Providers
 ----------------------
 apachemodule
-     Custom type to manage Apache modules::
+     Custom type to manage Apache modules. Note that all uses of
+     apachemodule *must* ``require => Package["apache"]`` to get around
+     limitations in Puppet's provider suitability checking.::
 
      apachemodule {
        "status":
-         ensure => present;
+         ensure => present,
+         require => Package["apache"];
      }
 
 a2mod
