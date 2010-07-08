@@ -1,3 +1,12 @@
+puppet-module-apache (1.1.11) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * Fix variable names and service notification.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Wed, 07 Jul 2010 23:24:16 +0000
+
 puppet-module-apache (1.1.10) lucid; urgency=low
 
   [ Paul Lathrop ]
