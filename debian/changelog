@@ -1,3 +1,12 @@
+puppet-module-apache (1.1.12) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * Update README
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Thu, 08 Jul 2010 20:55:20 +0000
+
 puppet-module-apache (1.1.11) lucid; urgency=low
 
   [ Paul Lathrop ]
