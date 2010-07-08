@@ -2,5 +2,5 @@ README.rst metadata.json usr/share/puppet/modules/apache
 files/apache.conf files/envvars usr/share/puppet/modules/apache/files
 lib/puppet/provider/apachemodule/a2mod.rb usr/share/puppet/modules/apache/lib/puppet/provider/apachemodule
 lib/puppet/type/apachemodule.rb usr/share/puppet/modules/apache/lib/puppet/type
-manifests/config.pp manifests/init.pp manifests/vhost.pp usr/share/puppet/modules/apache/manifests
+manifests/config.pp manifests/init.pp manifests/vhost.pp manifests/module.pp usr/share/puppet/modules/apache/manifests
 
