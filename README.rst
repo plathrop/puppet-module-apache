@@ -54,8 +54,13 @@ $apache_mods_enabled
 
      Default: ``${apache_conf_dir}/mods-enabled``
 
-$apache_listen_ports
-     The (space separated) list of ports apache should listen on.
+$apache_listen_address
+     The address apache should listen on.
+
+     Default: ``*``
+
+$apache_listen_port
+     The port apache should listen on.
 
      Default: ``80``
 
