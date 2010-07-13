@@ -1,3 +1,14 @@
+puppet-module-apache (1.1.15) lucid; urgency=low
+
+  [ Ian Eure ]
+  * Refactor how we configure the address & port to bind Apache to; it
+    would generate invalid configs before.
+  * Update README.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Tue, 13 Jul 2010 23:02:07 +0000
+
 puppet-module-apache (1.1.14) lucid; urgency=low
 
   [ Ian Eure ]
