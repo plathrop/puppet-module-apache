@@ -44,9 +44,14 @@ class apache {
     default => $apache_mods_enabled
   }
 
-  $apache_listen_ports = $apache_listen_ports ? {
+  $apache_listen_port = $apache_listen_port ? {
     "" => "80",
-    default => $apache_listen_ports
+    default => $apache_listen_port
+  }
+
+  $apache_listen_address = $apache_listen_address ? {
+    "" => "*",
+    default => $apache_listen_address
   }
 
   package {
@@ -95,7 +100,7 @@ class apache {
 
   apache::config {
     "ports":
-      content => "${apache_listen_ports}\n",
+      content => "Listen ${apache_listen_address}:${apache_listen_port}\n",
       order => "000";
   }
 
