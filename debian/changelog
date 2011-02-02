@@ -1,3 +1,12 @@
+puppet-module-apache (1.1.20) lucid; urgency=low
+
+  [ Paul Lathrop ]
+  * This module works with all versions of puppet.
+
+  [ SimpleGeo Nerds ]
+
+ -- SimpleGeo Nerds <nerds@simplegeo.com>  Wed, 02 Feb 2011 22:24:53 +0000
+
 puppet-module-apache (1.1.19) lucid; urgency=low
 
   * UNRELEASED
