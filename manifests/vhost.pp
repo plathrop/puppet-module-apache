@@ -1,43 +1,46 @@
-define apache::vhost($ensure, $source='', $content='') {
+define apache::vhost($ensure=running, $source=false, $content=false, $replace=false) {
   include apache
 
   $apache_sites_available = $apache::apache_sites_available
   $apache_sites_enabled = $apache::apache_sites_enabled
 
-  if ($source != '') and ($content != '') {
-    err("Cannot define both 'source' and 'content' for apache::vhost!")
+  if $ensure in [ present, running, absent, purged ] {
+    $ensure_real = $ensure
+  } else {
+    fail('Valid values for ensure: present, running, absent, purged, or stopped')
   }
 
-  if ($apache_sites_available == "") {
-    err("Must define apache_sites_available")
+  if $source and $content {
+    fail('You can only specify one of "source" or "content"')
   }
 
-  if ($apache_sites_enabled == "") {
-    err("Must define apache_sites_enabled")
+  $source_real = $source ? {
+    false   => undef,
+    default => $source
+  }
+
+  $content_real = $content ? {
+    false   => undef,
+    default => $content
+  }
+
+  $files_ensure = $ensure_real ? {
+    /(absent|purged)/ => absent,
+    default           => file
   }
 
   file {
     "${apache_sites_available}/${name}":
-      source => $source ? {
-        '' => undef,
-        default => $source
-        },
-      content => $content ? {
-        '' => undef,
-        default => $content
-        },
-      ensure  => $ensure ? {
-        present => present,
-        enabled => present,
-        absent => absent,
-        purged => absent,
-        default => $ensure
-      };
+      ensure  => $files_ensure,
+      source  => $source_real,
+      content => $content_real,
+      replace => $replace;
     "${apache_sites_enabled}/${name}":
-      target => "${apache_sites_available}/${name}",
-      ensure  => $ensure ? {
+      ensure => $ensure ? {
         enabled => symlink,
         default => $ensure
       }
+      target => "${apache_sites_available}/${name}",
+      notify => Service['apache'];
   }
 }
