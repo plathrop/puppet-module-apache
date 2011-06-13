@@ -82,7 +82,7 @@ class apache {
       notify => Service["apache"];
     "envvars":
       path => "${apache_conf_dir}/envvars",
-      source => "puppet:///apache/envvars",
+      content => template("apache/envvars.erb"),
       require => File["apache::config_dir"],
       notify => Service["apache"];
     ["${apache_conf_dir}/mods-available",
