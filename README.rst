@@ -64,6 +64,16 @@ $apache_listen_port
 
      Default: ``80``
 
+$apache_run_user
+     System user to run apache as.
+
+     Default: ``www-data``
+
+$apache_run_group
+     System group to run apache as.
+
+     Default: ``www-data``
+
 Defined Types
 -------------
 apache::config

@@ -1,0 +1,19 @@
+# envvars - default environment variables for apache2ctl
+
+# Since there is no sane way to get the parsed apache2 config in scripts, some
+# settings are defined via environment variables and then used in apache2ctl,
+# /etc/init.d/apache2, /etc/logrotate.d/apache2, etc.
+
+<% if has_variable?("apache_run_user") then %>
+    export APACHE_RUN_USER=<%= apache_run_user %>
+<% else %>
+    export APACHE_RUN_USER=www-data
+<% end %>
+
+<% if has_variable?("apache_run_group") then %>
+    export APACHE_RUN_GROUP=<%= apache_run_group %>
+<% else %>
+    export APACHE_RUN_GROUP=www-data
+<% end %>
+
+export APACHE_PID_FILE=/var/run/apache2.pid
