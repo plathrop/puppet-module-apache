@@ -39,7 +39,7 @@ define apache::vhost($ensure=running, $source=false, $content=false, $replace=fa
       ensure => $ensure ? {
         enabled => symlink,
         default => $ensure
-      }
+      },
       target => "${apache_sites_available}/${name}",
       notify => Service['apache'];
   }
